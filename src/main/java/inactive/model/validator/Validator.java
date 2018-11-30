@@ -1,4 +1,4 @@
-package ewil.validations;
+package inactive.model.validator;
 
 public interface Validator {
     void validate();

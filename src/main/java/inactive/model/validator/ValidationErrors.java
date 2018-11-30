@@ -1,4 +1,4 @@
-package ewil.validations;
+package inactive.model.validator;
 
 import lombok.Getter;
 

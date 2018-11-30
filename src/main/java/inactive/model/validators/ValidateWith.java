@@ -1,4 +1,6 @@
-package ewil.validations;
+package inactive.model.validators;
+
+import inactive.model.validator.AbstractValidator;
 
 import java.lang.annotation.*;
 

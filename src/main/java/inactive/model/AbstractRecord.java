@@ -1,6 +1,12 @@
-package ewil.validations;
+package inactive.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import inactive.model.validators.Uuid;
+import inactive.model.validators.ValidateWith;
+import inactive.model.validator.AbstractValidator;
+import inactive.model.validator.ValidationErrors;
+import inactive.model.validator.Validator;
+import inactive.model.validators.impl.UuidValidator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +20,7 @@ import java.lang.reflect.Method;
  */
 
 @NoArgsConstructor
-public abstract class Record {
+public abstract class AbstractRecord {
 
     @Getter
     @JsonIgnore
@@ -46,6 +52,12 @@ public abstract class Record {
                 invokeValidatorMethod(validator, "setRecord", Object.class, this);
                 invokeValidatorMethod(validator, "setValueKey", String.class, field.getName());
                 validator.validate();
+            }
+
+            if (field.isAnnotationPresent(Uuid.class)) {
+                UuidValidator uuidValidator = new UuidValidator();
+                uuidValidator.setField(field.getName());
+                uuidValidator.setValue(field);
             }
         }
     }

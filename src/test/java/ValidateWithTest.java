@@ -1,4 +1,4 @@
-import helper.AnnotatedTestClass;
+import impl.AnnotatedTestClass;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

@@ -1,6 +1,6 @@
-package helper;
+package impl;
 
-import ewil.validations.AbstractValidator;
+import inactive.model.validator.AbstractValidator;
 
 public class CustomStringValidation extends AbstractValidator<AnnotatedTestClass> {
 
