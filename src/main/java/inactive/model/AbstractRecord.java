@@ -3,16 +3,17 @@ package inactive.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import inactive.model.validators.Uuid;
 import inactive.model.validators.ValidateWith;
+import inactive.model.validators.impl.UuidValidator;
 import inactive.model.validator.AbstractValidator;
 import inactive.model.validator.ValidationErrors;
 import inactive.model.validator.Validator;
-import inactive.model.validators.impl.UuidValidator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
+import static inactive.model.util.ReflectionUtil.instantiateCustomValidator;
+import static inactive.model.util.ReflectionUtil.invokeValidatorMethod;
 
 /**
  * Currently supported annotations for validation:
@@ -27,7 +28,12 @@ public abstract class AbstractRecord {
     private ValidationErrors validationErrors = new ValidationErrors();
 
     public boolean isValid() {
-        validate();
+        try {
+            validate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return !hasErrors();
     }
 
@@ -35,7 +41,7 @@ public abstract class AbstractRecord {
         return !validationErrors.getErrors().isEmpty();
     }
 
-    private void validate() {
+    private void validate() throws IllegalAccessException {
         Field[] fields = this.getClass().getDeclaredFields();
 
         for (Field field : fields) {
@@ -50,40 +56,19 @@ public abstract class AbstractRecord {
                 // with a call to super().
                 Validator validator = instantiateCustomValidator(validatorClass.getName());
                 invokeValidatorMethod(validator, "setRecord", Object.class, this);
-                invokeValidatorMethod(validator, "setValueKey", String.class, field.getName());
+                invokeValidatorMethod(validator, "setFieldName", String.class, field.getName());
                 validator.validate();
             }
 
             if (field.isAnnotationPresent(Uuid.class)) {
                 UuidValidator uuidValidator = new UuidValidator();
-                uuidValidator.setField(field.getName());
-                uuidValidator.setValue(field);
+                uuidValidator.setValidationErrors(validationErrors);
+                uuidValidator.setFieldName(field.getName());
+
+                field.setAccessible(true);
+                uuidValidator.setValue(field.get(this));
+                uuidValidator.validate();
             }
         }
     }
-
-    private Validator instantiateCustomValidator(String className) {
-        Validator validator = null;
-        try {
-            validator = (Validator) Class.forName(className).newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace(); // TODO(ewill): What to do with all those exceptions? :(
-        }
-
-        return validator;
-    }
-
-    private void invokeValidatorMethod(Validator validator, String methodName, Class<?> parameterType, Object argument) {
-        try {
-            Method targetMethod = validator.getClass().getMethod(methodName, parameterType);
-            if (!targetMethod.isAccessible()) {
-                targetMethod.setAccessible(true);
-            }
-
-            targetMethod.invoke(validator, argument);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace(); // TODO(ewill): What to do with all those exceptions? :(
-        }
-    }
-
 }

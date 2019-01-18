@@ -9,9 +9,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public abstract class AbstractEachValidator implements Validator {
 
-    private ValidationErrors validationErrors;
+    protected Object value;
 
-    private String field;
+    protected String fieldName;
 
-    private Object value;
+    protected ValidationErrors validationErrors; // TODO(ewill): Move to interface?
 }

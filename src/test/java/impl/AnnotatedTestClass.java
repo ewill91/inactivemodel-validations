@@ -1,5 +1,6 @@
 package impl;
 
+import inactive.model.validators.Uuid;
 import inactive.model.validators.ValidateWith;
 import inactive.model.AbstractRecord;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ public class AnnotatedTestClass extends AbstractRecord {
     @ValidateWith(CustomStringValidation.class)
     private String friendlyString;
 
-    private TestClassProperty testClassProperty;
+    @Uuid
+    private String uuid;
 
 }

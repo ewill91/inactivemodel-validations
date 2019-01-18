@@ -11,5 +11,7 @@ public abstract class AbstractValidator<T> implements Validator {
 
     protected T record;
 
-    protected String valueKey;
+    protected String fieldName;
+
+    protected ValidationErrors validationErrors;
 }

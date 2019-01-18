@@ -2,7 +2,7 @@ package impl;
 
 import inactive.model.validator.AbstractValidator;
 
-public class CustomStringValidation extends AbstractValidator<AnnotatedTestClass> {
+public class CustomStringValidation extends AbstractValidator<TestRecord> {
 
     @Override
     public void validate() {
@@ -11,8 +11,8 @@ public class CustomStringValidation extends AbstractValidator<AnnotatedTestClass
 
 
     private void isHello() {
-        if (!record.getFriendlyString().equals("hello")) {
-            record.getValidationErrors().add("Provided value was not hello!");
+        if (!record.getRandomString().equals("hello")) {
+            validationErrors.add("Provided value was not hello!");
         }
     }
 }
