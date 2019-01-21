@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 
 public class ReflectionUtil {
     public static Validator instantiateCustomValidator(String className) {
+        // TODO instantiation failes?
         Validator validator = null;
         try {
             validator = (Validator) Class.forName(className).newInstance();
@@ -31,7 +32,7 @@ public class ReflectionUtil {
         }
     }
 
-    public static Object getAnnotationValue(Annotation annotation, String methodName) {
+    public static Class<?> getAnnotationValue(Annotation annotation, String methodName) {
         Object validatorClass = null;
         try {
             validatorClass = annotation.getClass().getMethod(methodName).invoke(annotation);
@@ -39,6 +40,6 @@ public class ReflectionUtil {
             e.printStackTrace(); // TODO(ewill): What to do with all those exceptions? :(
         }
 
-        return validatorClass;
+        return (Class)validatorClass;
     }
 }

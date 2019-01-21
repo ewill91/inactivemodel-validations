@@ -17,7 +17,7 @@ import static inactive.model.util.ReflectionUtil.invokeValidatorMethod;
 @Getter
 public class RecordValidator {
 
-    private ValidationErrors validationErrors;
+    private ValidationErrors validationErrors; // TODO make Report
 
     private Record record;
 
@@ -46,28 +46,6 @@ public class RecordValidator {
         for (Field field : fields) {
 
             try { validateField(field); } catch (Exception e) { e.printStackTrace(); }
-
-            //TODO(ewill): Make more generic for different kinds of annotations
-//            if (fieldName.isAnnotationPresent(ValidateWith.class)) {
-//                ValidateWith validateWith = fieldName.getAnnotation(ValidateWith.class);
-//                Class<? extends AbstractValidator> validatorClass = validateWith.value();
-//
-//                Validator validator = instantiateCustomValidator(validatorClass.getName());
-//                invokeValidatorMethod(validator, "setRecord", Object.class, record);
-//                invokeValidatorMethod(validator, "setFieldName", String.class, fieldName.getName());
-//                invokeValidatorMethod(validator, "setValidationErrors", ValidationErrors.class, validationErrors);
-//                validator.validate();
-//            }
-//
-//            if (fieldName.isAnnotationPresent(Uuid.class)) {
-//                UuidValidator uuidValidator = new UuidValidator();
-//                uuidValidator.setValidationErrors(validationErrors);
-//                uuidValidator.setFieldName(fieldName.getName());
-//
-//                fieldName.setAccessible(true);
-//                uuidValidator.setValue(fieldName.get(record));
-//                uuidValidator.validate();
-//            }
         }
     }
 
@@ -75,10 +53,10 @@ public class RecordValidator {
     private void validateField(Field field) throws IllegalAccessException {
         Annotation[] classValidators = getClassValidators(field);
         for (Annotation classValidator : classValidators) {
-            Annotation validatorAnnotation = field.getAnnotation(classValidator.annotationType());
-            Object validatorClass = getAnnotationValue(validatorAnnotation, "value");
+//            Annotation validatorAnnotation = field.getAnnotation(classValidator.annotationType());
+            Class<?> validatorClass = getAnnotationValue(classValidator, "value");
 
-            Validator validator = instantiateCustomValidator(validatorClass.getClass().getName());
+            Validator validator = instantiateCustomValidator(validatorClass.getName());
             invokeValidatorMethod(validator, "setRecord", Object.class, record);
             validator.setFieldName(field.getName());
             validator.setValidationErrors(validationErrors);
@@ -87,10 +65,9 @@ public class RecordValidator {
 
         Annotation[] eachValidators = getEachValidators(field);
         for (Annotation eachValidator : eachValidators) {
-            Annotation validatorAnnotation = field.getAnnotation(eachValidator.annotationType());
-            Object validatorClass = getAnnotationValue(validatorAnnotation, "value");
+            Class<?> validatorClass = getAnnotationValue(eachValidator, "value");
 
-            Validator validator = instantiateCustomValidator(validatorClass.getClass().getName());
+            Validator validator = instantiateCustomValidator(validatorClass.getName());
             if (!field.isAccessible()) {
                 field.setAccessible(true);
             }
