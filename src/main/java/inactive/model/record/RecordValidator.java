@@ -14,7 +14,7 @@ import static inactive.model.util.ReflectionUtil.invokeValidatorMethod;
 @Getter
 public class RecordValidator {
 
-    private ValidationReport validationReport; // TODO make Report
+    private ValidationReport validationReport;
 
     private Record record;
 
