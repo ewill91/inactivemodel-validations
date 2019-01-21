@@ -13,5 +13,5 @@ public abstract class AbstractValidator<T> implements Validator {
 
     protected String fieldName;
 
-    protected ValidationErrors validationErrors;
+    protected ValidationReport validationReport;
 }

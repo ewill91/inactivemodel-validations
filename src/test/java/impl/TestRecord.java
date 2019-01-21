@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TestRecord implements Record {
-    
+
     @Uuid
     private String uuid;
 

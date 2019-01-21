@@ -10,7 +10,7 @@ public class UuidValidator extends AbstractEachValidator {
 
     public void validate() {
         if (!isUuid()) {
-            validationErrors.add(String.format("'%s' is not a valid UUID", fieldName));
+            validationReport.addError(String.format("'%s' is not a valid UUID", fieldName));
         }
     }
 

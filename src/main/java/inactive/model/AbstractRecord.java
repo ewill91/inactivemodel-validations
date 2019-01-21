@@ -62,7 +62,7 @@ public abstract class AbstractRecord {
 
             if (field.isAnnotationPresent(Uuid.class)) {
                 UuidValidator uuidValidator = new UuidValidator();
-                uuidValidator.setValidationErrors(validationErrors);
+//                uuidValidator.setValidationErrors(validationErrors);
                 uuidValidator.setFieldName(field.getName());
 
                 field.setAccessible(true);

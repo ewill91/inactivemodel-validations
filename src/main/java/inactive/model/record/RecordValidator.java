@@ -1,9 +1,6 @@
 package inactive.model.record;
 
 import inactive.model.validator.*;
-import inactive.model.validators.Uuid;
-import inactive.model.validators.ValidateWith;
-import inactive.model.validators.impl.UuidValidator;
 import lombok.Getter;
 
 import java.lang.annotation.Annotation;
@@ -17,15 +14,16 @@ import static inactive.model.util.ReflectionUtil.invokeValidatorMethod;
 @Getter
 public class RecordValidator {
 
-    private ValidationErrors validationErrors; // TODO make Report
+    private ValidationReport validationReport; // TODO make Report
 
     private Record record;
 
     public RecordValidator(Record record) {
         this.record = record;
-        validationErrors = new ValidationErrors();
+        validationReport = new ValidationReport();
     }
 
+    // TODO move to ValidationReport.class
     public boolean isValid() {
         try {
             validate();
@@ -37,16 +35,18 @@ public class RecordValidator {
     }
 
     public boolean hasErrors() {
-        return !validationErrors.getErrors().isEmpty();
+        return !validationReport.getErrors().isEmpty();
     }
 
-    private void validate() throws IllegalAccessException {
+    public ValidationReport validate() {
         Field[] fields = record.getClass().getDeclaredFields();
 
         for (Field field : fields) {
 
             try { validateField(field); } catch (Exception e) { e.printStackTrace(); }
         }
+
+        return validationReport;
     }
 
     // TODO(ewill): cleanup
@@ -59,7 +59,7 @@ public class RecordValidator {
             Validator validator = instantiateCustomValidator(validatorClass.getName());
             invokeValidatorMethod(validator, "setRecord", Object.class, record);
             validator.setFieldName(field.getName());
-            validator.setValidationErrors(validationErrors);
+            validator.setValidationReport(validationReport);
             validator.validate();
         }
 
@@ -73,8 +73,8 @@ public class RecordValidator {
             }
             invokeValidatorMethod(validator, "setValue", Object.class, field.get(record));
             validator.setFieldName(field.getName());
-            validator.setValidationErrors(validationErrors);
-            invokeValidatorMethod(validator, "setValidationErrors", ValidationErrors.class, validationErrors);
+            validator.setValidationReport(validationReport);
+//            invokeValidatorMethod(validator, "setValidationReport", ValidationErrors.class, validationErrors);
             validator.validate();
         }
     }

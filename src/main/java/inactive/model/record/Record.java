@@ -1,11 +1,12 @@
 package inactive.model.record;
 
 
+import inactive.model.validator.ValidationReport;
+
 public interface Record {
 
-    default boolean validate() {
+    default ValidationReport validate() {
         RecordValidator recordValidator = new RecordValidator(this); // TODO find out if `this` is what i think it is
-
-        return recordValidator.isValid(); // TODO should return a Report
+        return recordValidator.validate(); // TODO should return a Report
     }
 }

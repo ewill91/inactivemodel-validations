@@ -1,10 +1,8 @@
-import impl.AnnotatedTestClass;
 import impl.TestRecord;
-import inactive.model.record.RecordValidator;
+import inactive.model.validator.ValidationReport;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class TestRecordTest {
@@ -12,8 +10,9 @@ public class TestRecordTest {
     @Test
     void test() {
         TestRecord testRecord = new TestRecord();
-        boolean isValid = testRecord.validate();
+        ValidationReport report = testRecord.validate();
 
-        assertTrue(isValid);
+
+        assertFalse(report.hasErrors());
     }
 }

@@ -13,5 +13,5 @@ public abstract class AbstractEachValidator implements Validator {
 
     protected String fieldName;
 
-    protected ValidationErrors validationErrors; // TODO(ewill): Move to interface?
+    protected ValidationReport validationReport;
 }

@@ -7,7 +7,7 @@ public interface Validator {
 
     void setFieldName(String fieldName);
 
-    ValidationErrors getValidationErrors();
+    ValidationReport getValidationReport();
 
-    void setValidationErrors(ValidationErrors validationErrors);
+    void setValidationReport(ValidationReport validationReport);
 }

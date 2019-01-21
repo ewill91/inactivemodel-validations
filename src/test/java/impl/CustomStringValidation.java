@@ -12,7 +12,7 @@ public class CustomStringValidation extends AbstractValidator<TestRecord> {
 
     private void isHello() {
         if (!record.getRandomString().equals("hello")) {
-            validationErrors.add("Provided value was not hello!");
+            validationReport.addError("Provided value was not hello!");
         }
     }
 }
