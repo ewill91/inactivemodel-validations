@@ -49,11 +49,11 @@ public class RecordValidator {
         return validationReport;
     }
 
-    // TODO(ewill): cleanup
+    // TODO(ewill): cleanup/split up
     private void validateField(Field field) throws IllegalAccessException {
-        Annotation[] classValidators = getClassValidators(field);
-        for (Annotation classValidator : classValidators) {
-//            Annotation validatorAnnotation = field.getAnnotation(classValidator.annotationType());
+
+        // CLASS VALIDATORS
+        Arrays.stream(getClassValidators(field)).forEach(classValidator -> {
             Class<?> validatorClass = getAnnotationValue(classValidator, "value");
 
             Validator validator = instantiateCustomValidator(validatorClass.getName());
@@ -61,8 +61,9 @@ public class RecordValidator {
             validator.setFieldName(field.getName());
             validator.setValidationReport(validationReport);
             validator.validate();
-        }
+        });
 
+        // EACH VALIDATORS
         Annotation[] eachValidators = getEachValidators(field);
         for (Annotation eachValidator : eachValidators) {
             Class<?> validatorClass = getAnnotationValue(eachValidator, "value");
@@ -74,7 +75,6 @@ public class RecordValidator {
             invokeValidatorMethod(validator, "setValue", Object.class, field.get(record));
             validator.setFieldName(field.getName());
             validator.setValidationReport(validationReport);
-//            invokeValidatorMethod(validator, "setValidationReport", ValidationErrors.class, validationErrors);
             validator.validate();
         }
     }
@@ -90,12 +90,4 @@ public class RecordValidator {
                 .filter(annotation -> annotation.annotationType().isAnnotationPresent(EachValidator.class))
                 .toArray(Annotation[]::new);
     }
-
-//    private boolean isClassValidator(Annotation annotation) {
-//        Annotation[] annotations = annotation.annotationType().getDeclaredAnnotations()
-//        return Arrays.stream(annotations)
-//                .filter(a -> {
-//                    a.getClass().isAnnotationPresent(ClassValidator.class);
-//                })
-//    }
 }

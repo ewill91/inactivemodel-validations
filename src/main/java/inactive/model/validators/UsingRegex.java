@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 public @interface UsingRegex {
 
     /*
-     * Regex that the fieldName will be validated with
+     * Regex that the field will be validated with
      */
     String value();
 }
