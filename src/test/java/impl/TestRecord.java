@@ -21,7 +21,7 @@ public class TestRecord implements Record {
     @ValidateWith(CustomStringValidation.class)
     private String sayHello;
 
-    @Length(max = 160)
+    @Length(max = 10)
     private String comment;
 
 

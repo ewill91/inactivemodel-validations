@@ -1,26 +1,21 @@
 package inactive.model.validator;
 
+import lombok.Getter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ValidationReport {
 
-    private ValidationErrors validationErrors;
-
-
-    public ValidationReport() {
-        validationErrors = new ValidationErrors();
-    }
+    @Getter
+    private List<String> errors = new ArrayList<>();
 
     public void addError(String error) {
-        validationErrors.add(error);
-    }
-
-    public List<String> getErrors() {
-        return validationErrors.getErrors();
+        errors.add(error);
     }
 
     public boolean hasErrors() {
-        return !validationErrors.getErrors().isEmpty();
+        return !errors.isEmpty();
     }
 
 }

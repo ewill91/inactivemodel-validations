@@ -7,6 +7,6 @@ public interface Record {
 
     default ValidationReport validate() {
         RecordValidator recordValidator = new RecordValidator(this); // TODO find out if `this` is what i think it is
-        return recordValidator.validate(); // TODO should return a Report
+        return recordValidator.validate();
     }
 }

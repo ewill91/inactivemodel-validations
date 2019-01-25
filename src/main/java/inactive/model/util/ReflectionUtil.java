@@ -3,10 +3,11 @@ package inactive.model.util;
 import inactive.model.validator.Validator;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
+
+
+// TODO(ewill): What to do with all those exceptions? :(
 
 public class ReflectionUtil {
     public static Validator instantiateCustomValidator(String className) {
@@ -15,7 +16,7 @@ public class ReflectionUtil {
         try {
             validator = (Validator) Class.forName(className).newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace(); // TODO(ewill): What to do with all those exceptions? :(
+            e.printStackTrace();
         }
 
         return validator;
@@ -30,18 +31,34 @@ public class ReflectionUtil {
 
             targetMethod.invoke(validator, argument);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace(); // TODO(ewill): What to do with all those exceptions? :(
+            e.printStackTrace();
         }
     }
 
-    public static Class<?> getAnnotationValue(Annotation annotation, String methodName) {
-        Object validatorClass = null;
+    public static Class<?> getValidatorClassFromAnnotation(Annotation annotation, String methodName) {
+        return (Class)getValueFromAnnotation(annotation, methodName);
+    }
+
+    public static Object getValueFromAnnotation(Annotation annotation, String methodName) {
+        Object value = null;
         try {
-            validatorClass = annotation.getClass().getMethod(methodName).invoke(annotation);
+            value = annotation.getClass().getMethod(methodName).invoke(annotation);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace(); // TODO(ewill): What to do with all those exceptions? :(
+            e.printStackTrace();
         }
 
-        return (Class)validatorClass;
+        return value;
+    }
+
+    public static Annotation[] getDeclaredFieldAnnotations(Object record, String fieldName) {
+        Annotation[] annotations = null;
+
+        try {
+            annotations = record.getClass().getDeclaredField(fieldName).getAnnotations();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        return annotations;
     }
 }

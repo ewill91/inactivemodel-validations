@@ -7,7 +7,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-import static inactive.model.util.ReflectionUtil.getAnnotationValue;
+import static inactive.model.util.ReflectionUtil.getValidatorClassFromAnnotation;
 import static inactive.model.util.ReflectionUtil.instantiateCustomValidator;
 import static inactive.model.util.ReflectionUtil.invokeValidatorMethod;
 
@@ -53,8 +53,8 @@ public class RecordValidator {
     private void validateField(Field field) throws IllegalAccessException {
 
         // CLASS VALIDATORS
-        Arrays.stream(getClassValidators(field)).forEach(classValidator -> {
-            Class<?> validatorClass = getAnnotationValue(classValidator, "value");
+        Arrays.stream(getClassValidatorAnnotations(field)).forEach(classValidatorAnnotation -> {
+            Class<?> validatorClass = getValidatorClassFromAnnotation(classValidatorAnnotation, "value");
 
             Validator validator = instantiateCustomValidator(validatorClass.getName());
             invokeValidatorMethod(validator, "setRecord", Object.class, record);
@@ -64,28 +64,29 @@ public class RecordValidator {
         });
 
         // EACH VALIDATORS
-        Annotation[] eachValidators = getEachValidators(field);
-        for (Annotation eachValidator : eachValidators) {
-            Class<?> validatorClass = getAnnotationValue(eachValidator, "value");
+        Annotation[] eachValidators = getEachValidatorAnnotations(field);
+        for (Annotation eachValidatorAnnotation : eachValidators) {
+            Class<?> validatorClass = getValidatorClassFromAnnotation(eachValidatorAnnotation, "value");
 
             Validator validator = instantiateCustomValidator(validatorClass.getName());
             if (!field.isAccessible()) {
                 field.setAccessible(true);
             }
             invokeValidatorMethod(validator, "setValue", Object.class, field.get(record));
+            invokeValidatorMethod(validator, "setRecord", Object.class, record);
             validator.setFieldName(field.getName());
             validator.setValidationReport(validationReport);
             validator.validate();
         }
     }
 
-    private Annotation[] getClassValidators(Field field) {
+    private Annotation[] getClassValidatorAnnotations(Field field) {
         return Arrays.stream(field.getDeclaredAnnotations())
                 .filter(annotation -> annotation.annotationType().isAnnotationPresent(ClassValidator.class))
                 .toArray(Annotation[]::new);
     }
 
-    private Annotation[] getEachValidators(Field field) {
+    private Annotation[] getEachValidatorAnnotations(Field field) {
         return Arrays.stream(field.getDeclaredAnnotations())
                 .filter(annotation -> annotation.annotationType().isAnnotationPresent(EachValidator.class))
                 .toArray(Annotation[]::new);
