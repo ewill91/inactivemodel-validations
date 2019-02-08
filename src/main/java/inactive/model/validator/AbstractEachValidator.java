@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// TODO merge with AbstractValidator?
+// Problem:
 // EachValidators with variables (eg Length(min = ..., max = ...)) require a way
 // to get to the specified values.
 // Either the initializer for the EachValidator classes has to be refactored

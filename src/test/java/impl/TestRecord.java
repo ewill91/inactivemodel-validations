@@ -18,11 +18,9 @@ public class TestRecord implements Record {
     @Uuid
     private String uuid;
 
-    @ValidateWith(CustomStringValidation.class)
+    @ValidateWith(HelloValidator.class)
     private String sayHello;
 
-    @Length(max = 10)
+    @Length(min = 1, max = 10)
     private String comment;
-
-
 }

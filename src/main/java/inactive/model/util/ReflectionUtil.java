@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 
 public class ReflectionUtil {
     public static Validator instantiateCustomValidator(String className) {
-        // TODO instantiation failes?
+        // TODO instantiation fails?
         Validator validator = null;
         try {
             validator = (Validator) Class.forName(className).newInstance();
