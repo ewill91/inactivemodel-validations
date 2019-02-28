@@ -13,6 +13,9 @@ public class LengthValidator extends AbstractEachValidator {
 
     @Override
     public void validate() {
+
+        // TODO: Value(s) from annotation should be set during instantiation (see also RegexValidator)
+
         Annotation[] annotations = getDeclaredFieldAnnotations(record, fieldName);
 
         Annotation annotation = Stream.of(annotations)

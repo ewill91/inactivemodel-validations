@@ -34,13 +34,13 @@ public class RecordValidator {
 
     // TODO(ewill): cleanup/split up
     private void validateField(Field field) {
-        Arrays.stream(getClassValidatorAnnotations(field)).forEach(classValidatorAnnotation -> {
-            new ClassValidatorValidationCommand(record, field, classValidatorAnnotation, validationReport).validate();
-        });
+        Arrays.stream(getClassValidatorAnnotations(field)).forEach(classValidatorAnnotation ->
+            new ClassValidatorValidationCommand(record, field, classValidatorAnnotation, validationReport).validate()
+        );
 
-        Arrays.stream(getEachValidatorAnnotations(field)).forEach(eachValidatorAnnotation -> {
-            new EachValidatorValidationCommand(record, field, eachValidatorAnnotation, validationReport).validate();
-        });
+        Arrays.stream(getEachValidatorAnnotations(field)).forEach(eachValidatorAnnotation ->
+            new EachValidatorValidationCommand(record, field, eachValidatorAnnotation, validationReport).validate()
+        );
     }
 
     private Annotation[] getClassValidatorAnnotations(Field field) {

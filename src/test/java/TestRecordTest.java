@@ -12,7 +12,8 @@ public class TestRecordTest {
         TestRecord testRecord = new TestRecord();
         testRecord.setSayHello("hello");
         testRecord.setUuid("ffdfea9d-d85d-4b69-be6b-f2cd5b0b7dfe");
-        testRecord.setComment("1234567890");
+        testRecord.setStringWithLengthValidator("1234567890");
+        testRecord.setAlphanumericMax15Chars("abc123");
         ValidationReport report = testRecord.validate();
 
         if (report.hasErrors()) {
