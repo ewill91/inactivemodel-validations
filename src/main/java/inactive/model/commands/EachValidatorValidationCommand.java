@@ -16,6 +16,17 @@ public class EachValidatorValidationCommand extends AbstractValidationCommand {
                                           ValidationReport validationReport) {
 
         super(record, field, validatorAnnotation, validationReport);
+        // Assumption: The `value` of the annotation is always the validation class
+        // that has to be instantiated.
+        //
+        // To get all the additional parameters, the following should be done:
+        // 1) Get the types of the members from annotationType.memberTypes.
+        // Maybe copy the memberTypes map minus `value` (usually the first entry)
+        // The member type will be required to reflectively add the member values
+        // to the validator class (either by calling setters or using an AllArgs
+        // constructor)
+        //
+        // 2) Create validator object (duh...)
 
         if (!field.isAccessible()) {
             field.setAccessible(true);
