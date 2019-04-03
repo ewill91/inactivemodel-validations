@@ -7,6 +7,7 @@ max length for length validations) have to be specified separately.
 
 # TODO'S
 - Cleanup ReflectionUtil (ie properly handle errors)
+- Comment methods that are used to implement new validators
 - Write tests
 - Write readme
 - Finish aforementioned TODO's
