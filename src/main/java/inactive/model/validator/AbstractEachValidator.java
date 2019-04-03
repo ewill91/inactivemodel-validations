@@ -26,7 +26,17 @@ public abstract class AbstractEachValidator implements EachValidator {
 
     protected Annotation[] fieldAnnotations;
 
-    protected Object getValueFromAnnotation(Class<? extends Annotation> annotationClass, String methodName) {
+    /**
+     * Returns the value of a method from an annotation with type {@code Object}. Values have to
+     * be explicitly casted to the desired primitive.
+     *
+     * @param annotationClass the annotation where the method is declared.
+     * @param methodName the name of the method that holds the value.
+     * @return the {@code Object} object with the value from the annotation.
+     * @exception ClassNotFoundException if the {@code annotationClass} could not be found.
+     */
+    protected Object getValueFromAnnotation(Class<? extends Annotation> annotationClass, String methodName)
+            throws ClassNotFoundException {
         Annotation annotation = Stream.of(fieldAnnotations)
                 .filter(a -> a.annotationType().getName().equals(annotationClass.getName()))
                 .findFirst()
@@ -35,11 +45,9 @@ public abstract class AbstractEachValidator implements EachValidator {
         if (annotation == null) {
             log.error("Field '{}' does not have annotation '{}'", fieldName, annotationClass.getName());
 
-            throw new RuntimeException();
+            throw new ClassNotFoundException();
         }
 
         return ReflectionUtil.getValueFromAnnotation(annotation, methodName);
     }
-
-    // TODO provide functionality for easy access to field's annotations
 }
