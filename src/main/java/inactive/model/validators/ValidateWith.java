@@ -1,7 +1,7 @@
 package inactive.model.validators;
 
 import inactive.model.validator.AbstractValidator;
-import inactive.model.validator.ClassValidator;
+import inactive.model.validator.annotation.ClassValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -3,6 +3,8 @@ package inactive.model.record;
 import inactive.model.commands.ClassValidatorValidationCommand;
 import inactive.model.commands.EachValidatorValidationCommand;
 import inactive.model.validator.*;
+import inactive.model.validator.annotation.ClassValidator;
+import inactive.model.validator.annotation.EachValidator;
 import lombok.Getter;
 
 import java.lang.annotation.Annotation;

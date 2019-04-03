@@ -1,7 +1,7 @@
 package inactive.model.validators;
 
 import inactive.model.validator.AbstractEachValidator;
-import inactive.model.validator.EachValidator;
+import inactive.model.validator.annotation.EachValidator;
 import inactive.model.validators.impl.UuidValidator;
 
 import java.lang.annotation.ElementType;

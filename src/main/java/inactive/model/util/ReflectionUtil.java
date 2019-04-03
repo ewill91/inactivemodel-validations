@@ -6,15 +6,12 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-
-// TODO(ewill): What to do with all those exceptions? :(
-
 public class ReflectionUtil {
-    public static Validator instantiateCustomValidator(String className) {
+    public static <T extends Validator> T instantiateCustomValidator(String className, Class<T> type) {
         // TODO instantiation fails?
-        Validator validator = null;
+        T validator = null;
         try {
-            validator = (Validator) Class.forName(className).newInstance();
+            validator = type.cast(Class.forName(className).newInstance());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -36,7 +33,7 @@ public class ReflectionUtil {
     }
 
     public static Class<?> getValidatorClassFromAnnotation(Annotation annotation, String methodName) {
-        return (Class)getValueFromAnnotation(annotation, methodName);
+        return (Class) getValueFromAnnotation(annotation, methodName);
     }
 
     public static Object getValueFromAnnotation(Annotation annotation, String methodName) {
@@ -61,4 +58,5 @@ public class ReflectionUtil {
 
         return annotations;
     }
+
 }

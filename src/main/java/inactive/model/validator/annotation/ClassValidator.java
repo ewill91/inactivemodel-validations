@@ -1,4 +1,4 @@
-package inactive.model.validator;
+package inactive.model.validator.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
