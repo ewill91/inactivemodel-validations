@@ -1,6 +1,6 @@
 package inactive.model.validator;
 
-import inactive.model.util.ReflectionUtil;
+import inactive.model.validator.reflect.AnnotationReflectionUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,6 +48,6 @@ public abstract class AbstractEachValidator implements EachValidator {
             throw new ClassNotFoundException();
         }
 
-        return ReflectionUtil.getValueFromAnnotation(annotation, methodName);
+        return AnnotationReflectionUtil.getElementFromAnnotation(annotation, methodName);
     }
 }

@@ -1,8 +1,8 @@
 package impl;
 
-import inactive.model.validator.AbstractValidator;
+import inactive.model.validator.AbstractClassValidator;
 
-public class HelloValidator extends AbstractValidator<TestRecord> {
+public class HelloValidator extends AbstractClassValidator<TestRecord> {
 
     @Override
     public void validate() {

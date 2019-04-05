@@ -1,8 +1,8 @@
 package inactive.model.record;
 
-import inactive.model.commands.ClassValidatorValidationCommand;
-import inactive.model.commands.EachValidatorValidationCommand;
-import inactive.model.validator.*;
+import inactive.model.validator.ValidationReport;
+import inactive.model.validator.commands.ClassValidatorValidationCommand;
+import inactive.model.validator.commands.EachValidatorValidationCommand;
 import inactive.model.validator.annotation.ClassValidator;
 import inactive.model.validator.annotation.EachValidator;
 import lombok.Getter;
@@ -13,18 +13,18 @@ import java.util.Arrays;
 
 
 @Getter
-public class RecordValidator {
+class RecordValidator {
 
     private ValidationReport validationReport;
 
     private Record record;
 
-    public RecordValidator(Record record) {
+    RecordValidator(Record record) {
         this.record = record;
         validationReport = new ValidationReport();
     }
 
-    public ValidationReport validate() {
+    ValidationReport validate() {
         Field[] fields = record.getClass().getDeclaredFields();
 
         for (Field field : fields) {

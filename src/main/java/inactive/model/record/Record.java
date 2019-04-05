@@ -2,6 +2,9 @@ package inactive.model.record;
 
 import inactive.model.validator.ValidationReport;
 
+/**
+ * TODO
+ */
 public interface Record {
 
     default ValidationReport validate() {

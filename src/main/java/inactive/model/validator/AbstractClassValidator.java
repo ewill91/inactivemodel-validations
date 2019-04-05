@@ -7,11 +7,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class AbstractValidator<T> implements Validator {
+public abstract class AbstractClassValidator<T> implements Validator {
 
     protected T record;
 
     protected String fieldName;
 
     protected ValidationReport validationReport;
+
 }

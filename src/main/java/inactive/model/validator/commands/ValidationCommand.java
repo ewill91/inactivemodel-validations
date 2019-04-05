@@ -1,4 +1,4 @@
-package inactive.model.commands;
+package inactive.model.validator.commands;
 
 public interface ValidationCommand {
 

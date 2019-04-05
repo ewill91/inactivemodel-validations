@@ -1,6 +1,6 @@
 package inactive.model.validators;
 
-import inactive.model.validator.AbstractValidator;
+import inactive.model.validator.AbstractClassValidator;
 import inactive.model.validator.annotation.ClassValidator;
 
 import java.lang.annotation.ElementType;
@@ -16,5 +16,5 @@ public @interface ValidateWith {
     /*
      * Class that is used to validate the annotated fieldName
      */
-    Class<? extends AbstractValidator> value();
+    Class<? extends AbstractClassValidator> value();
 }

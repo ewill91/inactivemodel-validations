@@ -5,6 +5,9 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TODO
+ */
 public class ValidationReport {
 
     @Getter

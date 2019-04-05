@@ -1,4 +1,4 @@
-package inactive.model.commands;
+package inactive.model.validator.commands;
 
 import inactive.model.record.Record;
 import inactive.model.validator.EachValidator;
@@ -8,9 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
-import static inactive.model.util.ReflectionUtil.getDeclaredFieldAnnotations;
-import static inactive.model.util.ReflectionUtil.getValidatorClassFromAnnotation;
-import static inactive.model.util.ReflectionUtil.instantiateCustomValidator;
+import static inactive.model.validator.reflect.AnnotationReflectionUtil.getDeclaredFieldAnnotations;
+import static inactive.model.validator.reflect.AnnotationReflectionUtil.getValidatorClassFromAnnotation;
+import static inactive.model.validator.reflect.ValidatorReflectionUtil.instantiateValidator;
 
 @Slf4j
 public class EachValidatorValidationCommand implements ValidationCommand {
@@ -25,7 +25,7 @@ public class EachValidatorValidationCommand implements ValidationCommand {
         String fieldName = field.getName();
 
         Class<?> validatorClass = getValidatorClassFromAnnotation(validatorAnnotation, "value");
-        validator = instantiateCustomValidator(validatorClass.getName(), EachValidator.class);
+        validator = instantiateValidator(EachValidator.class, validatorClass.getName());
 
         validator.setRecord(record);
         validator.setValidationReport(validationReport);
