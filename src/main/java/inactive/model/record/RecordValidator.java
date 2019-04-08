@@ -11,7 +11,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-
 @Getter
 class RecordValidator {
 
@@ -34,7 +33,6 @@ class RecordValidator {
         return validationReport;
     }
 
-    // TODO(ewill): cleanup/split up
     private void validateField(Field field) {
         Arrays.stream(getClassValidatorAnnotations(field)).forEach(classValidatorAnnotation ->
             new ClassValidatorValidationCommand(record, field, classValidatorAnnotation, validationReport).validate()

@@ -8,8 +8,8 @@ public class LengthValidator extends AbstractEachValidator {
     @Override
     public void validate() {
         try {
-            int min = (int) getValueFromAnnotation(Length.class, "min");
-            int max = (int) getValueFromAnnotation(Length.class, "max");
+            int min = (int) getElementFromAnnotation(Length.class, "min");
+            int max = (int) getElementFromAnnotation(Length.class, "max");
 
             if (value.toString().length() < min) {
                 validationReport.addError("Value '" + fieldName + "' is too short. Minimum length is " + min);

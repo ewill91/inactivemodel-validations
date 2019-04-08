@@ -40,7 +40,7 @@ public class EachValidatorValidationCommand implements ValidationCommand {
             Object value = field.get(record);
             validator.setValue(value);
         } catch (IllegalAccessException e) {
-            log.error("Could not access field {} of record {}", fieldName, record.getClass().getName());
+            log.error("Failed to access field {} of record {}", fieldName, record.getClass().getName());
             e.printStackTrace();
         }
 

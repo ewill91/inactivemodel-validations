@@ -68,6 +68,8 @@ public class AnnotationReflectionUtil {
         try {
             annotations = record.getClass().getDeclaredField(fieldName).getAnnotations();
         } catch (NoSuchFieldException e) {
+            log.error("Field '{}' does not exist", fieldName);
+
             e.printStackTrace();
         }
 

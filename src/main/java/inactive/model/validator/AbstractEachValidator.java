@@ -27,15 +27,15 @@ public abstract class AbstractEachValidator implements EachValidator {
     protected Annotation[] fieldAnnotations;
 
     /**
-     * Returns the value of a method from an annotation with type {@code Object}. Values have to
+     * Returns the {@code Object} object from an annotation. Return values have to
      * be explicitly casted to the desired primitive.
      *
-     * @param annotationClass the annotation where the method is declared.
-     * @param methodName the name of the method that holds the value.
+     * @param annotationClass the annotation where the element is declared.
+     * @param elementName the name of the element that holds the desired value.
      * @return the {@code Object} object with the value from the annotation.
      * @exception ClassNotFoundException if the {@code annotationClass} could not be found.
      */
-    protected Object getValueFromAnnotation(Class<? extends Annotation> annotationClass, String methodName)
+    protected Object getElementFromAnnotation(Class<? extends Annotation> annotationClass, String elementName)
             throws ClassNotFoundException {
         Annotation annotation = Stream.of(fieldAnnotations)
                 .filter(a -> a.annotationType().getName().equals(annotationClass.getName()))
@@ -48,6 +48,6 @@ public abstract class AbstractEachValidator implements EachValidator {
             throw new ClassNotFoundException();
         }
 
-        return AnnotationReflectionUtil.getElementFromAnnotation(annotation, methodName);
+        return AnnotationReflectionUtil.getElementFromAnnotation(annotation, elementName);
     }
 }

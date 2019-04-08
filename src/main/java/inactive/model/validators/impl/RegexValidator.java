@@ -10,7 +10,7 @@ public class RegexValidator extends AbstractEachValidator {
     @Override
     public void validate() {
         try {
-            String regex = (String) getValueFromAnnotation(UsingRegex.class, "regex");
+            String regex = (String) getElementFromAnnotation(UsingRegex.class, "regex");
 
             Pattern pattern = Pattern.compile(regex);
 
