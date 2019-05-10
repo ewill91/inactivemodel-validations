@@ -6,9 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * TODO
+ * Indicates the type of the validator annotation and is required by
+ * the {@class RecordValidator} to determine which {@code ValidationCommand}
+ * has to be used.
  */
 @Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ClassValidator {
-}
+public @interface ClassValidator {}

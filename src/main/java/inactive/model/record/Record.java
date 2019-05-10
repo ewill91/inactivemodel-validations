@@ -3,7 +3,11 @@ package inactive.model.record;
 import inactive.model.validator.ValidationReport;
 
 /**
- * TODO
+ * Interface which has to be implemented by a class in order to run
+ * the {@class ClassValidator} and {@class EachValidator} validators.
+ *
+ * As it only provides a default method, no extra implementation work
+ * has to be done inside the validation target.
  */
 public interface Record {
 

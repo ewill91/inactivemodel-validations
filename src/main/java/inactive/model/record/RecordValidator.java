@@ -34,24 +34,18 @@ class RecordValidator {
     }
 
     private void validateField(Field field) {
-        Arrays.stream(getClassValidatorAnnotations(field)).forEach(classValidatorAnnotation ->
+        Arrays.stream(getValidatorAnnotations(field, ClassValidator.class)).forEach(classValidatorAnnotation ->
             new ClassValidatorValidationCommand(record, field, classValidatorAnnotation, validationReport).validate()
         );
 
-        Arrays.stream(getEachValidatorAnnotations(field)).forEach(eachValidatorAnnotation ->
+        Arrays.stream(getValidatorAnnotations(field, EachValidator.class)).forEach(eachValidatorAnnotation ->
             new EachValidatorValidationCommand(record, field, eachValidatorAnnotation, validationReport).validate()
         );
     }
 
-    private Annotation[] getClassValidatorAnnotations(Field field) {
+    private Annotation[] getValidatorAnnotations(Field field, Class<? extends Annotation> validatorType) {
         return Arrays.stream(field.getDeclaredAnnotations())
-                .filter(annotation -> annotation.annotationType().isAnnotationPresent(ClassValidator.class))
-                .toArray(Annotation[]::new);
-    }
-
-    private Annotation[] getEachValidatorAnnotations(Field field) {
-        return Arrays.stream(field.getDeclaredAnnotations())
-                .filter(annotation -> annotation.annotationType().isAnnotationPresent(EachValidator.class))
+                .filter(annotation -> annotation.annotationType().isAnnotationPresent(validatorType))
                 .toArray(Annotation[]::new);
     }
 }

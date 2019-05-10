@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.annotation.Annotation;
 import java.util.stream.Stream;
 
+/**
+ * Parent class for validators tat validate individual fields in isolation.
+ */
 @Slf4j
 @Getter
 @Setter
