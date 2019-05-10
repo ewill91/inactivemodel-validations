@@ -41,6 +41,8 @@ public class EachValidatorValidationCommand implements ValidationCommand {
             validator.setValue(value);
         } catch (IllegalAccessException e) {
             log.error("Failed to access field {} of record {}", fieldName, record.getClass().getName());
+
+            // TODO: Don't cause program to quit.
             e.printStackTrace();
         }
 

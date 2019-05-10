@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An instance of class {@class ValidationReport} is automatically created for classes
- * that implement the interface {@class Record} upon calling the {@link Record#validate()}
+ * An instance of class {@code ValidationReport} is automatically created for classes
+ * that implement the {@code Record} interface upon calling the {@link Record#validate()}
  * method.
  *
- * When creating validators, errors can be written to those {@class ValidationReport}
- * instances.
+ * When creating validators, errors can be written to this {@code ValidationReport}
+ * instance.
  */
 public class ValidationReport {
 

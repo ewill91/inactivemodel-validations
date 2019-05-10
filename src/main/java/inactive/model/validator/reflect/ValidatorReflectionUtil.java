@@ -26,6 +26,7 @@ public class ValidatorReflectionUtil {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             log.error("Failed to instantiate validator class '{}'", className);
 
+            // TODO: Don't cause program to quit.
             e.printStackTrace();
         }
 

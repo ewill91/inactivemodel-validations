@@ -48,6 +48,7 @@ public class ClassValidatorValidationCommand implements ValidationCommand {
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             log.error("Failed to add record to '{}'", validator.getClass());
 
+            // TODO: Don't cause program to quit.
             e.printStackTrace();
         }
     }

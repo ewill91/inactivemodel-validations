@@ -29,6 +29,7 @@ public class AnnotationReflectionUtil {
             log.error("Failed to get element '{}' from annotation '{}'",
                     elementName, annotation.annotationType().getName());
 
+            // TODO: Don't cause program to quit.
             e.printStackTrace();
         }
 
@@ -70,6 +71,7 @@ public class AnnotationReflectionUtil {
         } catch (NoSuchFieldException e) {
             log.error("Field '{}' does not exist", fieldName);
 
+            // TODO: Don't cause program to quit.
             e.printStackTrace();
         }
 

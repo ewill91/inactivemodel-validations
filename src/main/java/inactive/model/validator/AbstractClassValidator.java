@@ -7,7 +7,7 @@ import lombok.Setter;
 /**
  * Parent class for validators that require more than just the validated
  * field as context for the validation. For this, the validator needs the
- * concrete type of the record for which the validation is being used for.
+ * concrete type of the record for which the validation is being used.
  *
  * @param <T> the type of the class that is being validated.
  */
