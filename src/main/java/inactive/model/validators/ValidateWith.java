@@ -13,8 +13,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidateWith {
 
-    /*
-     * Class that is used to validate the annotated fieldName
+    /**
+     * The class which is used to validate the annotated fieldName.
      */
     Class<? extends AbstractClassValidator> value();
 }

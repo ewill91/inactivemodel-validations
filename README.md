@@ -5,9 +5,9 @@ Ruby on Rails' ActiveModel validations in Java. The idea is to throw a bunch of 
 and out comes a validation report.
 
 The possible validations go beyond just checking a string for its length or making sure that a 
-numeric value falls within a certain range--though that's also possible--by allowing to register
+numeric value falls within a certain range (though that's also possible) by allowing to register
 a custom validator on a field-level, which has full access to the entire model. Through this, it
-is also possible to validate things like relation ships between fields, like for example 'field 
+is also possible to validate things like relationships between fields, like for example 'field 
 `A` is only set if field `B` is **not** set'.
 
 Note: This library has never been used in a real project and was developed for practice during 
@@ -24,13 +24,10 @@ Soon
 
 
 # TODO'S
-- Comment methods that are used to implement new validators
-  - The `value()` method of Validator annotations **must only be** the class
-that is doing the validation. Specific validation parameters (eg min or
-max length for length validations) have to be specified separately. (Document!)
-
 - Write tests
 - Write readme
+- Maybe rename ClassValidator to RecordValidator to reduce confusion, as
+class validators also must only target fields
 - Finish aforementioned TODO's
 
 ## Maybe TODO

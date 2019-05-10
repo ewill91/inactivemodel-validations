@@ -9,6 +9,14 @@ import java.lang.annotation.Target;
  * Indicates the type of the validator annotation and is required by
  * the {@class RecordValidator} to determine which {@code ValidationCommand}
  * has to be used.
+ *
+ * When implementing a new {@class ClassValidator} annotation, this annotation's
+ * value has to be set to the concrete {@class AbstractClassValidator} class. This
+ * can be done by setting that class as the default value.
+ *
+ * There is also a generic annotation {@link inactive.model.validators.ValidateWith}
+ * that can be used to register custom class validators by providing them as the
+ * annotation's argument.
  */
 @Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.RUNTIME)
