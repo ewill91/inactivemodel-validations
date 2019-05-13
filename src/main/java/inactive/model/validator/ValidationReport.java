@@ -19,6 +19,7 @@ public class ValidationReport {
     @Getter
     private List<String> errors = new ArrayList<>();
 
+    // TODO: Provide option for string format + args
     public void addError(String error) {
         errors.add(error);
     }

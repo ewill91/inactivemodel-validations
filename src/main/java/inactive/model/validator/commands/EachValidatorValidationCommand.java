@@ -46,8 +46,9 @@ public class EachValidatorValidationCommand implements ValidationCommand {
             e.printStackTrace();
         }
 
-        Annotation[] annotations = getDeclaredFieldAnnotations(record, fieldName);
-        validator.setFieldAnnotations(annotations);
+        // Do we really have to add *all* declared annotations to the validator?
+        // Technically, it only needs the current one.
+        validator.setFieldAnnotations(field.getDeclaredAnnotations());
     }
 
     public void validate() {

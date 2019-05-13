@@ -12,9 +12,9 @@ public class LengthValidator extends AbstractEachValidator {
             int max = (int) getElementFromAnnotation(Length.class, "max");
 
             if (value.toString().length() < min) {
-                validationReport.addError("Value '" + fieldName + "' is too short. Minimum length is " + min);
+                validationReport.addError("Value of '" + fieldName + "' is too short. Minimum length is " + min);
             } else if (value.toString().length() > max) {
-                validationReport.addError("Value '" + fieldName + "' is too long. Maximum length is " + max);
+                validationReport.addError("Value of '" + fieldName + "' is too long. Maximum length is " + max);
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
