@@ -9,7 +9,9 @@ import lombok.Getter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Getter
 class RecordValidator {
@@ -24,11 +26,10 @@ class RecordValidator {
     }
 
     ValidationReport validate() {
-        Field[] fields = record.getClass().getDeclaredFields();
 
-        for (Field field : fields) {
-            validateField(field);
-        }
+        // To make inheritance work, the fields have to be collected from all superclasses.
+        List<Field> fields = collectFields(record.getClass(), new ArrayList<>());
+        fields.forEach(this::validateField);
 
         return validationReport;
     }
@@ -47,5 +48,17 @@ class RecordValidator {
         return Arrays.stream(field.getDeclaredAnnotations())
                 .filter(annotation -> annotation.annotationType().isAnnotationPresent(validatorType))
                 .toArray(Annotation[]::new);
+    }
+
+    private List<Field> collectFields(Class c, List<Field> fields) {
+        if (c == null) {
+            return fields;
+        }
+
+        fields.addAll(Arrays.asList(c.getDeclaredFields()));
+
+        collectFields(c.getSuperclass(), fields);
+
+        return fields;
     }
 }

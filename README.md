@@ -27,8 +27,8 @@ Soon
 - Write tests
 - Write readme
 - What about inheritance in validated classes?
-- Maybe rename ClassValidator to RecordValidator to reduce confusion, as
-class validators also must only target fields
+- Maybe rename ClassValidator to something else to reduce confusion, as
+class validators also must only target fields (ContextAwareValidator?)
 - Finish aforementioned TODO's
 
 ## Maybe TODO

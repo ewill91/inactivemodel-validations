@@ -38,7 +38,8 @@ public class ClassValidatorValidationCommand implements ValidationCommand {
 
     private void addRecordToValidator(Record record) {
         try {
-            Method targetMethod = validator.getClass().getMethod("setRecord", Record.class);
+            // Why does it have to be of type Object here? setRecord takes T as input.
+            Method targetMethod = validator.getClass().getMethod("setRecord", Object.class);
 
             if (!targetMethod.isAccessible()) {
                 targetMethod.setAccessible(true);

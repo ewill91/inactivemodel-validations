@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
-import static inactive.model.validator.reflect.AnnotationReflectionUtil.getDeclaredFieldAnnotations;
 import static inactive.model.validator.reflect.AnnotationReflectionUtil.getValidatorClassFromAnnotation;
 import static inactive.model.validator.reflect.ValidatorReflectionUtil.instantiateValidator;
 

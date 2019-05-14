@@ -63,6 +63,7 @@ public class AnnotationReflectionUtil {
      * @param fieldName the name of the field.
      * @return the decorating {@code Annotation[]} objects.
      */
+    @Deprecated
     public static Annotation[] getDeclaredFieldAnnotations(Object record, String fieldName) {
         Annotation[] annotations = null;
 
