@@ -11,6 +11,8 @@ public class LengthValidator extends AbstractEachValidator {
             return;
         }
 
+        // TODO: Should work for arrays and lists, as well.
+
         try {
             int min = (int) getElementFromAnnotation(Length.class, "min");
             int max = (int) getElementFromAnnotation(Length.class, "max");
@@ -21,6 +23,8 @@ public class LengthValidator extends AbstractEachValidator {
                 validationReport.addError("Value of '{}' is too long. Max length is {}", fieldName, max);
             }
         } catch (ClassNotFoundException e) {
+
+            // TODO: Don't cause program to quit.
             e.printStackTrace();
         }
     }
