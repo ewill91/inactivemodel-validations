@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 public @interface ValidateWith {
 
     /**
-     * The class which is used to validate the annotated fieldName.
+     * The class which is used to validate the annotated field.
      */
     Class<? extends AbstractClassValidator> value();
 }
