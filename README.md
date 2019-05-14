@@ -26,9 +26,13 @@ Soon
 # TODO'S
 - Write tests
 - Write readme
-- What about inheritance in validated classes?
 - Maybe rename ClassValidator to something else to reduce confusion, as
 class validators also must only target fields (ContextAwareValidator?)
+- Validators have to know about one another. Eg, they need to know if a field can be null or not. Or assume
+each field is nullable and add a non-null validator with higher presendence. For now, validations for specific
+values just skip when field is null which should be fine, since the validations *cannot* happen either way. So
+if the field must not be null, it has to be checked beforehand. But maybe build 'skip if null' into the lib, to
+reduce boilerplate.
 - Finish aforementioned TODO's
 
 ## Maybe TODO

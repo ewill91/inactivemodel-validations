@@ -2,6 +2,7 @@ package inactive.model.validator;
 
 import inactive.model.record.Record;
 import lombok.Getter;
+import org.slf4j.helpers.MessageFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,14 @@ public class ValidationReport {
     @Getter
     private List<String> errors = new ArrayList<>();
 
-    // TODO: Provide option for string format + args
     public void addError(String error) {
         errors.add(error);
+    }
+
+    public void addError(String format, Object... args) {
+        String errMsg = MessageFormatter.arrayFormat(format, args).getMessage();
+
+        errors.add(errMsg);
     }
 
     public boolean hasErrors() {

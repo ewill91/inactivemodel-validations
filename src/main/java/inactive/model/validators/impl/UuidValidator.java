@@ -9,15 +9,17 @@ public class UuidValidator extends AbstractEachValidator {
     private static final String UUID_PATTERN = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$";
 
     public void validate() {
+        if (value == null) {
+            return;
+        }
+
         if (!isUuid()) {
-            validationReport.addError(String.format("'%s' is not a valid UUID", fieldName));
+            validationReport.addError("Value of '{}' is not a valid UUID", fieldName);
         }
     }
 
     private boolean isUuid() {
         Pattern pattern = Pattern.compile(UUID_PATTERN);
-        // split up for debugging
-        boolean match = pattern.matcher(value.toString()).find();
-        return match;
+        return pattern.matcher(value.toString()).find();
     }
 }

@@ -9,13 +9,17 @@ public class RegexValidator extends AbstractEachValidator {
 
     @Override
     public void validate() {
+        if (value == null) {
+            return;
+        }
+
         try {
             String regex = (String) getElementFromAnnotation(UsingRegex.class, "regex");
 
             Pattern pattern = Pattern.compile(regex);
 
             if (!matchesPattern(pattern)) {
-                validationReport.addError("Value '" + fieldName + "' does not match regex!");
+                validationReport.addError("Value of '{}' does not match regex", fieldName);
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
