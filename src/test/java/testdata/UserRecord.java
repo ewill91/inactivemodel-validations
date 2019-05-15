@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,7 +30,11 @@ public class UserRecord implements Record {
     @ValidateWith(IsDefaultAddressValidator.class)
     private Address defaultAddress;
 
+    @Length(min = 1, max = 2)
     private Address[] addresses;
+
+    @Length(min = 3, max = 10)
+    private List<Something> somethings;
 
     @Getter
     @Setter
@@ -37,4 +43,6 @@ public class UserRecord implements Record {
 
         private boolean isDefault;
     }
+
+    public static class Something {}
 }

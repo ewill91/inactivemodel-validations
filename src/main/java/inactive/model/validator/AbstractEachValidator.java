@@ -11,7 +11,7 @@ import java.lang.annotation.Annotation;
 import java.util.stream.Stream;
 
 /**
- * Parent class for validators tat validate individual fields in isolation.
+ * Parent class for validators that validate individual fields in isolation.
  */
 @Slf4j
 @Getter
@@ -21,6 +21,7 @@ public abstract class AbstractEachValidator implements EachValidator {
 
     protected Object record;
 
+    // TODO: Ideally, this should reflect the actual type of the object.
     protected Object value;
 
     protected String fieldName;
@@ -36,10 +37,11 @@ public abstract class AbstractEachValidator implements EachValidator {
      * @param annotationClass the annotation where the element is declared.
      * @param elementName the name of the element that holds the desired value.
      * @return the {@code Object} object with the value from the annotation.
-     * @exception ClassNotFoundException if the {@code annotationClass} could not be found.
      */
-    protected Object getElementFromAnnotation(Class<? extends Annotation> annotationClass, String elementName)
-            throws ClassNotFoundException {
+    protected Object getElementFromAnnotation(Class<? extends Annotation> annotationClass, String elementName) {
+        // TODO
+        // Is there even a point to storing all the annotations here?
+        // Without it, there would be no `null` to handle...
         Annotation annotation = Stream.of(fieldAnnotations)
                 .filter(a -> a.annotationType().getName().equals(annotationClass.getName()))
                 .findFirst()
@@ -47,8 +49,7 @@ public abstract class AbstractEachValidator implements EachValidator {
 
         if (annotation == null) {
             log.error("Field '{}' does not have annotation '{}'", fieldName, annotationClass.getName());
-
-            throw new ClassNotFoundException();
+            return null;
         }
 
         return AnnotationReflectionUtil.getElementFromAnnotation(annotation, elementName);

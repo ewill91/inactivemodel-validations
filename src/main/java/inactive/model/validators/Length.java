@@ -18,5 +18,6 @@ public @interface Length {
 
     int min() default 0;
 
+    // TODO: Use system max of int as default so arg can be omitted?
     int max();
 }

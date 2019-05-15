@@ -13,16 +13,12 @@ public class RegexValidator extends AbstractEachValidator {
             return;
         }
 
-        try {
-            String regex = (String) getElementFromAnnotation(UsingRegex.class, "regex");
+        String regex = (String) getElementFromAnnotation(UsingRegex.class, "regex");
 
-            Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = Pattern.compile(regex);
 
-            if (!matchesPattern(pattern)) {
-                validationReport.addError("Value of '{}' does not match regex", fieldName);
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        if (!matchesPattern(pattern)) {
+            validationReport.addError("Value of '{}' does not match regex", fieldName);
         }
     }
 

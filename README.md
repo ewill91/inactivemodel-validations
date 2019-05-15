@@ -58,7 +58,7 @@ is rarely used, as EachValidators focus only on individual fields.
 
 When in comes to ClassValidators, however, the record is of type `T` and has to be specified with the implementation
 of the validator. This is necessary, because ClassValidators (or context aware validators) are used to check fields
-in the context of other fields, like checking if flags within an object are set correctly. 
+in the context of other fields, like checking if flags or defaults within an object are set correctly. 
 
 ```java
 public class UserHasDriversLicenseFlagValidator extends AbstractClassValidator<TestUserRecord> {
@@ -82,6 +82,7 @@ class validators also must only target fields (ContextAwareValidator?) ALSO ADJU
 - Validations which cannot validate null fields need some special treatment. Currently it is
 necessary to explicitly return from Validator#validate() if the checked value is null. To reduce
 this boilerplate, it should be handled by the lib. Probably some implicit opt-out skip.
+- if validated field is not a primitive, the `value` maybe cannot be of type `Object`?
 - improve validation error messages. Add some default text or structure (like in Ruby)
 - decide what to do with exceptions that cause the program to exit
 - Write tests
